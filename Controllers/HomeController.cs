@@ -4,15 +4,16 @@ using dotidentity.Models;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotidentity.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(UserManager<MyUser> userManager, ILogger<HomeController> logger)
+        public HomeController(UserManager<IdentityUser> userManager, ILogger<HomeController> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -43,15 +44,15 @@ namespace dotidentity.Controllers
                     Identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
 
                     await HttpContext.SignInAsync("cookies", new ClaimsPrincipal(Identity));
+                    return RedirectToAction("About");
 
                 }
 
                 ModelState.AddModelError("", "Utilizador ou senha errado");
-
-                return RedirectToAction("About");
             }
+            
 
-            return View();
+            return View(model);
         }
 
         [HttpGet]
@@ -76,7 +77,7 @@ namespace dotidentity.Controllers
                 return View(model);
             }
 
-            var user = new MyUser
+            var user = new IdentityUser
             {
                 UserName = model.UserName,
                 Email = model.Email,
@@ -100,6 +101,17 @@ namespace dotidentity.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult About(){
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Success(){
+            return View();
         }
 
         public IActionResult Error()

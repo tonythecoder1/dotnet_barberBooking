@@ -1,21 +1,38 @@
 using dotidentity;
 using dotidentity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = @"Server=127.0.0.1;Port=3306;Database=dotnet_db;User ID=root;Password=12345678;";
 
-builder.Services.AddIdentityCore<MyUser>(options => {})
-    .AddUserStore<MyUserStore>()
+builder.Services.AddDbContext<IdentityDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        mysqlOptions => mysqlOptions.MigrationsAssembly("dotidentity")));
+
+//  Configurar Identity com UserStore customizado
+builder.Services.AddIdentityCore<IdentityUser>(options => { })
+    .AddUserStore<MyIdentityUserStore>()
     .AddDefaultTokenProviders();
 
+// Registrar UserOnlyStore com o DbContext agora disponível
+builder.Services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
 
-// Add services to the container
+//  Autenticação por cookies
+builder.Services.AddAuthentication("cookies")
+    .AddCookie("cookies", options => 
+    {
+        options.LoginPath = "/Home/Login";
+    });
+
+//  MVC
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+//  Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -24,11 +41,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
-// ✅ Adicionado Middleware de Autenticação e Autorização
-app.UseAuthentication();
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -2,10 +2,11 @@
     ViewData["Title"] = "Success";
 }
 
-<h2></h2>
+<h2>Claims do Usuário</h2>
 
 <ul>
-    @foreach(var claim in User.Claims){
-        <li><b>claim.Type</b>:asp-action claim.Value</li>
-    }
+@foreach (var claim in User.Claims)
+{
+    <li><b>@claim.Type</b>: @claim.Value</li>
+}
 </ul>
