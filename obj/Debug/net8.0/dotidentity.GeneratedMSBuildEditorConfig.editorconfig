@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Home/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Gb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,8 +42,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Home/Reservas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZXNlcnZhcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Home/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Home/Sucesso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TdWNlc3NvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/ReservaView/Reservar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVzZXJ2YVZpZXcvUmVzZXJ2YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/ReservaView/VerReservas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVzZXJ2YVZpZXcvVmVyUmVzZXJ2YXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/Views/Shared/Error.cshtml]

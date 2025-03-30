@@ -10,14 +10,22 @@ namespace dotidentity.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MyUser> _userManager;
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserClaimsPrincipalFactory<MyUser> _userClaimsPrincipalFactory;
+        private readonly SignInManager<MyUser> signInManager;
 
-        public HomeController(UserManager<IdentityUser> userManager, ILogger<HomeController> logger)
+        
+        public HomeController(UserManager<MyUser> userManager, ILogger<HomeController> logger, 
+        IUserClaimsPrincipalFactory<MyUser> claimsPrincipalFactory, SignInManager<MyUser> signInManager)
         {
             _userManager = userManager;
             _logger = logger;
+            _userClaimsPrincipalFactory = claimsPrincipalFactory;
+            this.signInManager = signInManager;
         }
+
+
 
         public IActionResult Index()
         {
@@ -30,28 +38,88 @@ namespace dotidentity.Controllers
             return View();
         }
 
+    [HttpGet]
+    public async Task<IActionResult> Reservas()
+    {
+    return View();
+    }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgetPasswordModel model)
+        {
+            if (ModelState.IsValid){
+                var user = await _userManager.FindByEmailAsync(model.Email);
+            
+
+                if(user != null){
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var resetUrl = Url.Action("ResetPassword","Home",
+                        new { token = token, email = model.Email}, Request.Scheme);
+
+                        System.IO.File.WriteAllText("resetLink.txt", resetUrl);
+                } else{
+                    Console.WriteLine("Erro ao mudar password");
+                }
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string token, string email)
+        {
+            return View(new ResetPasswordModel{Token = token, Email = email});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if(ModelState.IsValid){
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if(user != null){
+                    var result =  await _userManager.ResetPasswordAsync(user,
+                        model.Token, model.Password);
+
+                        if(!result.Succeeded){
+
+                            foreach (var error in result.Errors){
+                                ModelState.AddModelError("", error.Description);
+                            }
+                        }
+                        return View("Sucesso");
+                }
+                ModelState.AddModelError("", "Invalid Request");
+            }
+
+            return View();
+        }
+
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login (LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+               var siginResult = await signInManager.PasswordSignInAsync(model.UserName, 
+                        model.Password, false, false);
 
-                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password)){
-                    var Identity = new ClaimsIdentity("cookies");
-                    Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                    Identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-
-                    await HttpContext.SignInAsync("cookies", new ClaimsPrincipal(Identity));
+                if(siginResult.Succeeded){
                     return RedirectToAction("About");
-
                 }
 
                 ModelState.AddModelError("", "Utilizador ou senha errado");
             }
             
-
             return View(model);
         }
 
@@ -77,7 +145,7 @@ namespace dotidentity.Controllers
                 return View(model);
             }
 
-            var user = new IdentityUser
+            var user = new MyUser
             {
                 UserName = model.UserName,
                 Email = model.Email,
@@ -103,6 +171,8 @@ namespace dotidentity.Controllers
             return View(model);
         }
 
+    
+
         [HttpGet]
         [Authorize]
         public IActionResult About(){
@@ -118,5 +188,14 @@ namespace dotidentity.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();  // Encerra a sessão do utilizador atual
+            return RedirectToAction("Login", "Home");  // Redireciona para página de Login
+        }
+
     }
 }

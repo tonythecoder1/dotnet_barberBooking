@@ -1,0 +1,43 @@
+@model IEnumerable<dotidentity.Models.Reserva>
+
+@{
+    ViewData["Title"] = "Minhas Reservas";
+}
+
+<div class="container">
+    <h2 class="mt-4">Minhas Reservas</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Não existem reservas criadas.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Observações</th>
+                    <th>Ações</th> <!-- nova coluna -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reserva in Model)
+                {
+                    <tr>
+                        <td>@reserva.DataHora.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@reserva.Observacoes</td>
+                        <td>
+                            <form asp-controller="ReservaView" asp-action="CancelarReserva" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@reserva.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

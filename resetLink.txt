@@ -1,0 +1,1 @@
+http://localhost:5062/Home/ResetPassword?token=CfDJ8IBDNpY1apFInFomNDM2OYIzU2CqvpuPwiPYA8lNRnairu%2B6epClLsuk%2FFtXPR8KT%2Bml%2BY0PS9HKzKgixDT4V6hg0kMag1MjFvzYRxZ23RZHdBoITOQ%2FNT3Nl%2FtSIFIkKfgkeQf6kDNMmbumLzxymf9vav44CknkIue3hoEfYyqlfBoRDhBBkr0HPMG33tubf3%2B7AWqqZNB6OiYo15h7IsnngNxSz3Jv%2BKY4%2B7uJY6Tq&email=as@as

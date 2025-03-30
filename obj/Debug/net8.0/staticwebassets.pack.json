@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/images/1.png",
+      "PackagePath": "staticwebassets/images/1.png"
+    },
+    {
+      "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/images/2.jpg",
+      "PackagePath": "staticwebassets/images/2.jpg"
+    },
+    {
       "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

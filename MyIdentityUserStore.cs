@@ -1,107 +1,85 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
+using dotidentity.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace dotidentity
 {
-    public class MyIdentityUserStore : UserStoreBase<IdentityUser, string,
+    public class MyIdentityUserStore : UserStoreBase<MyUser, string,
                                     IdentityUserClaim<string>,
                                     IdentityUserLogin<string>,
                                     IdentityUserToken<string>>
     {
-        public MyIdentityUserStore(IdentityErrorDescriber identityErrorDescriber)
-            : base(identityErrorDescriber)
+        public MyIdentityUserStore(IdentityErrorDescriber describer) : base(describer) { }
+
+        public override IQueryable<MyUser> Users => throw new NotImplementedException();
+
+        public override Task<IdentityResult> CreateAsync(MyUser user, CancellationToken cancellationToken = default)
         {
+            // Aqui você criaria o usuário no banco
+            throw new NotImplementedException();
         }
 
-        public override IQueryable<IdentityUser> Users => throw new NotImplementedException();
-
-        public override Task AddClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
+        public override Task<IdentityResult> DeleteAsync(MyUser user, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task AddLoginAsync(IdentityUser user, UserLoginInfo login, CancellationToken cancellationToken = default)
+        public override Task<IdentityResult> UpdateAsync(MyUser user, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken = default)
+        public override Task<MyUser?> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken = default)
+        public override Task<MyUser?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IdentityUser?> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default)
+        public override Task AddLoginAsync(MyUser user, UserLoginInfo login, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IdentityUser?> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
+        public override Task RemoveLoginAsync(MyUser user, string loginProvider, string providerKey, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IdentityUser?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
+        public override Task<IList<UserLoginInfo>> GetLoginsAsync(MyUser user, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IList<Claim>> GetClaimsAsync(IdentityUser user, CancellationToken cancellationToken = default)
+        public override Task<MyUser?> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUser user, CancellationToken cancellationToken = default)
+        public override Task<IList<MyUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<IList<IdentityUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default)
+        public override Task<IList<Claim>> GetClaimsAsync(MyUser user, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task RemoveClaimsAsync(IdentityUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
+        public override Task AddClaimsAsync(MyUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task RemoveLoginAsync(IdentityUser user, string loginProvider, string providerKey, CancellationToken cancellationToken = default)
+        public override Task ReplaceClaimAsync(MyUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public override Task ReplaceClaimAsync(IdentityUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IdentityResult> UpdateAsync(IdentityUser user, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task AddUserTokenAsync(IdentityUserToken<string> token)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task<IdentityUserToken<string>?> FindTokenAsync(
-            IdentityUser user, string loginProvider, string name, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task<IdentityUser?> FindUserAsync(string userId, CancellationToken cancellationToken)
+        public override Task RemoveClaimsAsync(MyUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -116,7 +94,22 @@ namespace dotidentity
             throw new NotImplementedException();
         }
 
+        protected override Task AddUserTokenAsync(IdentityUserToken<string> token)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task<IdentityUserToken<string>?> FindTokenAsync(MyUser user, string loginProvider, string name, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Task RemoveUserTokenAsync(IdentityUserToken<string> token)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task<MyUser?> FindUserAsync(string userId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

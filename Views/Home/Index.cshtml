@@ -3,6 +3,35 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bem-vindo à Nossa Barbearia</h1>
+    <p class="lead">Veja alguns dos nossos cortes e conheça o nosso espaço!</p>
+</div>
+
+<div id="barberCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/images/1.png" class="d-block w-100" style="max-height: 400px; object-fit: cover;" alt="Corte 1">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/2.jpg" class="d-block w-100" style="max-height: 400px; object-fit: cover;" alt="Corte 2">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/3.jpg" class="d-block w-100" style="max-height: 400px; object-fit: cover;" alt="Barbearia">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#barberCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#barberCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="mt-4 text-center">
+    <p>
+        Conheça mais sobre os nossos serviços ou faça já a sua reserva!
+    </p>
+    <a class="btn btn-primary" asp-controller="ReservaView" asp-action="Reservar">Reservar Agora</a>
 </div>

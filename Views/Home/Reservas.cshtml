@@ -1,0 +1,36 @@
+@model dotidentity.Models.ReservaFormModel
+
+@{
+    ViewData["Title"] = "Criar Reserva";
+}
+
+<div class="container">
+    <h2 class="mt-4">Criar Reserva</h2>
+
+    @if (TempData["Mensagem"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Mensagem"]
+        </div>
+    }
+
+    <form asp-controller="ReservaView" asp-action="Criar" method="post">
+        <div class="form-group">
+            <label asp-for="DataHora">Data e Hora</label>
+            <input asp-for="DataHora" class="form-control" type="datetime-local" required />
+            <span asp-validation-for="DataHora" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3">
+            <label asp-for="Observacoes">Observações</label>
+            <textarea asp-for="Observacoes" class="form-control"></textarea>
+            <span asp-validation-for="Observacoes" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Criar Reserva</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
