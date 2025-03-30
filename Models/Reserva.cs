@@ -18,5 +18,12 @@ namespace dotidentity.Models
 
         [ForeignKey("UserId")]
         public MyUser Usuario { get; set; }
+
+
+         public int BarbeiroId { get; set; }
+        public Barbeiro Barbeiro { get; set; } = null!;
+
+        public int ServicoId { get; set; }
+        public Servico servico { get; set; } = null!;
     }
 }

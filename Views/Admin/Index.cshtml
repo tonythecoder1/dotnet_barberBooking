@@ -1,0 +1,56 @@
+@model dotidentity.Models.AdminViewModel
+@{
+    ViewData["Title"] = "Administração";
+}
+
+<h1> Pagina de Administrador</h1>
+
+<div class="container mt-5">
+    <!-- Barbeiros -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-body">
+            <h3 class="card-title fw-bold mb-4">Barbeiros</h3>
+
+            <form asp-action="AddBarbeiro" method="post" class="d-flex mb-4 gap-2">
+                <input type="text" name="nome" class="form-control" placeholder="Nome do Barbeiro" required />
+                <button type="submit" class="btn btn-primary px-4">Adicionar</button>
+            </form>
+
+            <ul class="list-group">
+                @foreach (var barbeiro in Model.Barbeiros)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @barbeiro.Nome
+                        <form asp-action="DeleteBarbeiro" asp-route-id="@barbeiro.Id" method="post" onsubmit="return confirm('Tem certeza que deseja eliminar este barbeiro?');">
+                            <button type="submit" class="btn btn-danger btn-sm px-3">Eliminar</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <!-- Tipos de Corte -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-body">
+            <h3 class="card-title fw-bold mb-4">Tipos de Corte</h3>
+
+            <form asp-action="AddTipoDeCorte" method="post" class="d-flex mb-4 gap-2">
+                <input type="text" name="nome" class="form-control" placeholder="Nome do serviço" required />
+                <button type="submit" class="btn btn-primary px-4">Adicionar</button>
+            </form>
+
+            <ul class="list-group">
+                @foreach (var servico in Model.Servicos)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @servico.Nome
+                        <form asp-action="DeleteTipoDeCorte" asp-route-id="@servico.Id" method="post" onsubmit="return confirm('Tem certeza que deseja eliminar este tipo de corte?');">
+                            <button type="submit" class="btn btn-danger btn-sm px-3">Eliminar</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

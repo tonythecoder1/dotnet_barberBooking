@@ -21,6 +21,18 @@
       "PackagePath": "staticwebassets/images/2.jpg"
     },
     {
+      "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/images/3.jpeg",
+      "PackagePath": "staticwebassets/images/3.jpeg"
+    },
+    {
+      "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/images/3.jpg",
+      "PackagePath": "staticwebassets/images/3.jpg"
+    },
+    {
+      "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/images/3.webp",
+      "PackagePath": "staticwebassets/images/3.webp"
+    },
+    {
       "Id": "/Users/antonyferreira/Desktop/dotnet_ Identity/dotidentity/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

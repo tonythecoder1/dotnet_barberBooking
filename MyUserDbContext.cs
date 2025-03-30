@@ -3,17 +3,14 @@ using dotidentity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class MyUserDbContext : IdentityDbContext<MyUser>  //bContext herda de IdentityDbContext<MyUser>
+public class MyUserDbContext : IdentityDbContext<MyUser>
 {
-    public MyUserDbContext(DbContextOptions<MyUserDbContext> options)
-        : base(options)
-    {
-    }
-
+    public MyUserDbContext(DbContextOptions<MyUserDbContext> options) : base(options) {}
     public MyUserDbContext() {}
 
     public DbSet<Reserva> Reservas { get; set; }
-
+    public DbSet<Barbeiro> Barbeiros { get; set; }
+    public DbSet<Servico> Servicos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -28,29 +25,48 @@ public class MyUserDbContext : IdentityDbContext<MyUser>  //bContext herda de Id
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-    base.OnModelCreating(modelBuilder);
-    modelBuilder.Entity<Organization>(org =>
-    {
-        org.ToTable("Organizations");          
-        org.HasKey(o => o.Id);
+        base.OnModelCreating(modelBuilder);
 
-        org.HasMany<MyUser>()
-            .WithOne(u => u.Organization)
-            .HasForeignKey(o => o.OrgId)
-            .IsRequired(false);
-    });
+        // Relacionamento com Organization
+        modelBuilder.Entity<Organization>(org =>
+        {
+            org.ToTable("Organizations");
+            org.HasKey(o => o.Id);
+            org.HasMany<MyUser>()
+                .WithOne(u => u.Organization)
+                .HasForeignKey(o => o.OrgId)
+                .IsRequired(false);
+        });
 
-    modelBuilder.Entity<Reserva>(reserva =>
-    {
-        reserva.ToTable("Reservas");
+        // Relacionamento com Barbeiro
+        modelBuilder.Entity<Barbeiro>(barbeiro =>
+        {
+            barbeiro.ToTable("Barbeiros");
+            barbeiro.HasKey(b => b.Id);
+            barbeiro.HasMany(b => b.Reservas)
+                .WithOne(r => r.Barbeiro)
+                .HasForeignKey(r => r.BarbeiroId);
+        });
 
-        reserva.HasKey(r => r.Id);
+        // Relacionamento com TipoDeCorte
+        modelBuilder.Entity<Servico>(tipo =>
+        {
+            tipo.ToTable("Servicos");
+            tipo.HasKey(t => t.Id);
+            tipo.HasMany(t => t.Reservas)
+                .WithOne(r => r.servico)
+                .HasForeignKey(r => r.ServicoId);
+        });
 
-        reserva.HasOne(r => r.Usuario)
-            .WithMany(u => u.Reservas)
-            .HasForeignKey(r => r.UserId)
-            .IsRequired(false);
-    });
-}
-
+        // Relacionamento com Reserva
+        modelBuilder.Entity<Reserva>(reserva =>
+        {
+            reserva.ToTable("Reservas");
+            reserva.HasKey(r => r.Id);
+            reserva.HasOne(r => r.Usuario)
+                .WithMany(u => u.Reservas)
+                .HasForeignKey(r => r.UserId)
+                .IsRequired(false);
+        });
+    }
 }
