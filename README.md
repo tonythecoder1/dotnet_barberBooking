@@ -61,7 +61,7 @@ wwwroot:
 
 Step 1 – Clone the repository:
 
-git clone https://github.com/your-username/barber-booking.git
+git clone https://github.com/tonythecoder1/dotnet_barberBooking
 cd barber-booking
 
 Step 2 – Configure the database connection:
